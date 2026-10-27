@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ViewTransition, startTransition } from 'react';
 import photo from './assets/photo.jpg';
 import './App.css';
 import Profile from './components/Profile.jsx';
@@ -15,18 +15,18 @@ function App() {
         <img src={photo} alt="Profile Picture" />
         <nav>
           <div className="nav-inner">
-            <button className={selected === 'profile' ? 'active' : ''} onClick={() => setSelected('profile')}>Profile</button>
-            <button className={selected === 'works' ? 'active' : ''} onClick={() => setSelected('works')}>works</button>
-            <button className={selected === 'contact' ? 'active' : ''} onClick={() => setSelected('contact')}>contact</button>
+            <button className={selected === 'profile' ? 'active' : ''} onClick={() => startTransition(() => setSelected('profile'))}>Profile</button>
+            <button className={selected === 'works' ? 'active' : ''} onClick={() => startTransition(() => setSelected('works'))}>works</button>
+            <button className={selected === 'contact' ? 'active' : ''} onClick={() => startTransition(() => setSelected('contact'))}>contact</button>
           </div>
         </nav>
       </header>
       <main>
         
-        {selected === 'profile' && <Profile />}
+        {selected === 'profile' && <ViewTransition><Profile /></ViewTransition>}
         
-        {selected === 'works' && <Works />}
-        {selected === 'contact' && <Contact />}
+        {selected === 'works' && <ViewTransition><Works /></ViewTransition>}
+        {selected === 'contact' && <ViewTransition><Contact /></ViewTransition>}
       </main>
     </>
   )
